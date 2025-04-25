@@ -5,10 +5,15 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Verificar Pedido</title>
     <style>
-        /* Estilos básicos */
+        /* Estilos globais */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
         body {
-            font-family: Arial, sans-serif;
-            background-color: #f4f4f9;
+            font-family: 'Arial', sans-serif;
+            background-color: #f0f0f5;
             display: flex;
             justify-content: center;
             align-items: center;
@@ -17,36 +22,76 @@
         }
         .container {
             text-align: center;
-            background-color: white;
+            background-color: #ffffff;
             padding: 30px;
-            border-radius: 10px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            border-radius: 15px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
             width: 100%;
-            max-width: 400px;
+            max-width: 450px;
         }
-        input {
-            padding: 10px;
+
+        h2 {
+            font-size: 24px;
+            margin-bottom: 20px;
+            color: #333;
+        }
+
+        /* Estilo da barra de busca */
+        .search-box {
             width: 100%;
-            margin: 10px 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 20px;
+        }
+        .search-box input {
+            width: 80%;
+            padding: 15px;
+            font-size: 16px;
+            border: 2px solid #ddd;
             border-radius: 5px;
-            border: 1px solid #ddd;
+            transition: border-color 0.3s ease;
         }
-        button {
+        .search-box input:focus {
+            border-color: #4CAF50;
+            outline: none;
+        }
+
+        /* Estilo do botão */
+        .search-box button {
+            padding: 16px;
             background-color: #4CAF50;
             color: white;
-            padding: 12px;
+            font-size: 16px;
             border: none;
             border-radius: 5px;
             cursor: pointer;
-            width: 100%;
-            font-size: 16px;
+            margin-left: 10px;
+            transition: background-color 0.3s ease;
         }
-        button:hover {
+        .search-box button:hover {
             background-color: #45a049;
         }
+
+        /* Mensagem de erro */
         .error {
-            color: red;
+            color: #ff4d4d;
             font-size: 14px;
+            margin-top: 10px;
+        }
+
+        /* Responsividade */
+        @media (max-width: 600px) {
+            .container {
+                padding: 20px;
+                max-width: 90%;
+            }
+            .search-box input {
+                width: 70%;
+            }
+            .search-box button {
+                width: 25%;
+            }
         }
     </style>
 </head>
@@ -54,19 +99,19 @@
 
     <div class="container">
         <h2>Verificar Pedido</h2>
-        <form id="cpfForm">
-            <input type="text" id="cpfInput" placeholder="numero do pedido ex:#1010" maxlength="11" required>
-            <button type="submit">Localizar pedido</button>
-        </form>
+        <div class="search-box">
+            <input type="text" id="cpfInput" placeholder="Número do pedido (ex: #1010)" maxlength="11" required>
+            <button type="submit" id="submitBtn">Localizar Pedido</button>
+        </div>
         <p id="errorMessage" class="error" style="display: none;">Pedido não encontrado. Tente novamente.</p>
     </div>
 
     <script>
-        // Lista de CPFs válidos para consulta
+        // Lista de pedidos válidos para consulta
         const validCpfs = ['1052', '98765432100', '11122233344']; // Adicione os CPFs válidos aqui
 
         // Função para verificar o CPF e redirecionar
-        document.getElementById('cpfForm').addEventListener('submit', function(event) {
+        document.getElementById('submitBtn').addEventListener('click', function(event) {
             event.preventDefault(); // Impede o envio do formulário
 
             const cpf = document.getElementById('cpfInput').value;
